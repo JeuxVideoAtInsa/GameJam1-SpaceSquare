@@ -18,23 +18,18 @@ Crafty.c("Cell", {
 		this.position.y = y*this.h;
 		this.x = this.position.x;
 		this.y = this.position.y;
-		console.log(this.position.x);
 		return this;
 	},
 	
-	applyTransform: function(x, y, w, h, angle) {
-		//this.rotation = angle;
-		var coef = this.position.x/this.position.y;
+	applyTransform: function(x, y, w, h, angle, cosinus, sinus) {
+		this.rotation = angle;
 		
-		var initAngle = Math.atan(coef);
-		angle = Math.PI*angle/180+initAngle;
+		angle = Math.PI*angle/180;//+initAngle;
 		var xd = this.position.x-w/2;
 		var yd = this.position.y-h/2;
 		
-		var dist = Math.sqrt(xd*xd + yd*yd);
-		
-		this.x = dist*Math.cos(angle) + x;
-		this.y = dist*Math.sin(angle) + y;
+		this.x = xd*cosinus - yd*sinus + x;
+		this.y = xd*sinus + yd*cosinus + y;
 		//console.log(this.pos.x + " " + this.pos.y + " - " + this.x + " " + this.y);
 	}
 	

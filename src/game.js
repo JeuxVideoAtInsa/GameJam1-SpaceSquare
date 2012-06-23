@@ -5,11 +5,11 @@ function debug(str) {
 }
 
 window.onload = function() {
-	Crafty.init(850, 850, 60);
+	Crafty.init(860, 860, 60);
 	
 	Crafty.scene("main", function (e) {
 		debug("main scene");
-		var pl = Crafty.e("World").world(425, 425, 600, 600);
+		var pl = Crafty.e("World").world(430, 430, 600, 600);
 		
 	});
 	
