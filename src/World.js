@@ -63,6 +63,8 @@ Crafty.c("World", {
 		
 		if(t > r.begin+r.duration) {
 			this.unbind("EnterFrame", r.cb);
+			this.angle = r.endingAngle;
+			this.applyTransform();
 			delete this.rotation;
 		}
 	},
