@@ -10,7 +10,7 @@ window.onload = function() {
 	Crafty.scene("main", function (e) {
 		debug("main scene");
 		var pl = Crafty.e("World").world(430, 430, 600, 600);
-		var box = createCharacter(10, 1, [10, 10], [10, 20]);
+		var box = createCharacter(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [20, 40]);
 	});
 	
 	Crafty.scene("main");

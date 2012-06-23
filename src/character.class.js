@@ -1,11 +1,5 @@
-function createCharacter(health, player, position, size) {
-	return Crafty.e("2D, Canvas, Color, Box2D, Character").Character(health, player, position, size).box2d({
-      bodyType: 'dynamic',
-      density: 1,
-      friction: 1,
-      restitution: 0.5,
-      shape: "circle"
-    });
+function createCharacter(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size) {
+	return Crafty.e("Character").Character(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size);
 }
 
 
@@ -33,11 +27,13 @@ Crafty.c('Character', {
 
 	health : 0,
 	state : CHARACTER_STATE_SPAWNING,
-	speed : 0,
+	maxSpeed : {x:0, y:0},
+	numberJump : 0,
+	numberJumpMax : 0,
+	initialSpeed : {x:0, y:0},
 	weapons : [],
 	currentWeapon : 0,
 	player : 0,
-	weight : 0,
 	moving : false,
 	skin : null,
 
@@ -46,29 +42,37 @@ Crafty.c('Character', {
 //-----------------------------------------------------------------------------
 
 	init : function() {
-		this.requires('2D, Box2D');
+		this.requires('2D, Canvas, Color, Collision, Gravity');
+		this.gravity('Cell');
 		this.color("#FF0000");
-		this.bind("EnterFrame", this.playerEnterFrame);
-		this.bind("KeyDown", this.playerKeyDown);
-		this.bind("KeyUp", this.playerKeyUp);
 	},
 
 //-----------------------------------------------------------------------------
 // Constructor
 //-----------------------------------------------------------------------------
 
-	Character: function (health, player, position, size) {
+	Character: function (health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size) {
 		this.player = player;
-		this.position = position;
 		this.health = health;
-		this.x = position[0];
-		this.y = position[1];
-		this.w = size[0];
-		this.h = size[1];
+		this.initialSpeed = initialSpeed;
+		this.maxSpeed = maxSpeed;
+		this.numberJumpMax = numberJumpMax;
+		this.gravityConst(weight);
+		this.collision(
+			new Crafty.polygon([0,0], [0,size[1]], [size[0],size[1]], [0,size[1]])
+		);
 		
-		// if (this.player == 1) {
-			// this.requires('Fourway');
-		// }
+		this.onHit('Cell', function CharacterOnHit(ent){
+			var platform = ent[0].obj;
+			var dx = Math.abs(platform._x - this._x);
+			var dy = Math.abs(platform._y - (this._y + this._h)); 
+			
+		});
+		
+		if (this.player == 1) {
+			this.requires('Twoway');
+			this.multiway({x:3,y:30}, {UP_ARROW: -90, DOWN_ARROW: 90, RIGHT_ARROW: 0, LEFT_ARROW: 180});
+		}
 	
 		this.attr({
 			x: position[0],

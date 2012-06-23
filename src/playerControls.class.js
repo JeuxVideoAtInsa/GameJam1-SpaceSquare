@@ -35,7 +35,7 @@ Crafty.c("PlayerControls", {
   Crafty.c("Slide", {
     init: function() {
       this._stepFrames = 5;
-      this._tileSize = 32;
+      this._tileSize = 15;
       this._moving = false;
       this._vx = 0; this._destX = 0; this._sourceX = 0;
       this._vy = 0; this._destY = 0; this._sourceY = 0;
@@ -52,10 +52,8 @@ Crafty.c("PlayerControls", {
         this._sourceY = this.y;
 
         // Figure out our destination
-        this._destX = this.x + direction[0] * 32;
-        this._destY = this.y + direction[1] * 32;
-		
-		this.body.SetPosition(new b2Vec2(_this._destX / SCALE, _this._destY / SCALE));
+        this._destX = this.x + direction[0] * this._tileSize;
+        this._destY = this.y + direction[1] * this._tileSize;
 
         // Get our x and y velocity
         this._vx = direction[0] * this._tileSize / this._stepFrames;

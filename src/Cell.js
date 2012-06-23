@@ -1,15 +1,17 @@
 Crafty.c("Cell", {
 
 	init: function() {
-		this.requires('2D, Canvas, Color');
-		this.w = 15;
-		this.h = 15;
+		this.requires('2D, Canvas, Color, Collision');
+		this.w = 20;
+		this.h = 20;
 		this.position = new Object();
 		this.position.x = 0;
 		this.position.y = 0;
 		this.color("#FF00FF");
 		this.origin("middle middle");
-		
+		this.collision(
+			new Crafty.polygon([0,0], [0,20], [20,20], [0,20])
+		);
 		return this;
 	},
 
