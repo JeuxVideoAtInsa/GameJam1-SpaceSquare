@@ -19,7 +19,11 @@ window.onload = function() {
 	
 	Crafty.scene("main", function (e) {
 		debug("main scene");
-		var pl = Crafty.e("World").world(430, 430, OS.config.scene.width, OS.config.scene.height);
+		var pl = Crafty.e("World").world(
+			OS.config.canvas.width/2, 
+			OS.config.canvas.height/2, 
+			OS.config.scene.width, 
+			OS.config.scene.height);
 		var box = createCharacter(10, 1, [10, 10], [10, 20]);
 	});
 	
@@ -27,7 +31,7 @@ window.onload = function() {
 	
 	
 	function loadSprites() {
-	  Crafty.sprite(15, "resources/img/tiles/simple_tile.png", {
+	  Crafty.sprite(OS.config.tile.width, "resources/img/tiles/simple_tile.png", {
 			tile1: [0, 0]
 		});
 	}

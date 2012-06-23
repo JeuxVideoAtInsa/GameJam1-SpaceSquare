@@ -2,8 +2,8 @@ Crafty.c("Cell", {
 
 	init: function() {
 		this.requires("2D, Canvas, SpriteAnimation");
-		this.w = 15;
-		this.h = 15;
+		this.w = OS.config.tile.width;
+		this.h = OS.config.tile.height;
 		this.position = new Object();
 		this.position.x = 0;
 		this.position.y = 0;
