@@ -5,7 +5,7 @@ function debug(str) {
 }
 
 window.onload = function() {
-	Crafty.init(860, 860, 60);
+	Crafty.init(OS.config.canvas.width, OS.config.canvas.width, OS.config.framerate);
 	
 	loadSprites();
 	
@@ -19,7 +19,7 @@ window.onload = function() {
 	
 	Crafty.scene("main", function (e) {
 		debug("main scene");
-		var pl = Crafty.e("World").world(430, 430, 600, 600);
+		var pl = Crafty.e("World").world(430, 430, OS.config.scene.width, OS.config.scene.height);
 		var box = createCharacter(10, 1, [10, 10], [10, 20]);
 	});
 	

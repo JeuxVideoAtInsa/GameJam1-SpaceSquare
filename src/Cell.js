@@ -19,7 +19,7 @@ Crafty.c("Cell", {
 		this.y = this.position.y;
 		
 		this.animate("blink",[[0,0],[1,0]]);
-		this.animate("blink", 60,-1);
+		this.animate("blink", OS.config.animation.tile.update,-1);
 		
 		return this;
 	},
