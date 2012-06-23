@@ -1,16 +1,16 @@
 Crafty.c("Cell", {
 
 	init: function() {
-		this.requires('2D, Canvas, Color, Collision');
-		this.w = 20;
-		this.h = 20;
+
+		this.requires("2D, Canvas, SpriteAnimation");
+		this.w = OS.config.tile.width;
+		this.h = OS.config.tile.height;
 		this.position = new Object();
 		this.position.x = 0;
 		this.position.y = 0;
-		this.color("#FF00FF");
 		this.origin("middle middle");
 		this.collision(
-			new Crafty.polygon([0,0], [0,20], [20,20], [0,20])
+			new Crafty.polygon([0,0], [0,OS.config.tile.height], [OS.config.tile.width,OS.config.tile.height], [OS.config.tile.width,0])
 		);
 		return this;
 	},
@@ -20,10 +20,15 @@ Crafty.c("Cell", {
 		this.position.y = y*this.h;
 		this.x = this.position.x;
 		this.y = this.position.y;
+		
+		this.animate("blink",[[0,0],[1,0]]);
+		this.animate("blink", OS.config.animation.tile.update,-1);
+		
 		return this;
 	},
 	
 	applyTransform: function(x, y, w, h, angle, cosinus, sinus) {
+		
 		this.rotation = angle;
 		
 		angle = Math.PI*angle/180;//+initAngle;

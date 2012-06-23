@@ -30,7 +30,7 @@ Crafty.c("World", {
 		      // console.log(tiles);
 		      
 		      for (var i = 0; i<tiles.length; i++) {
-			self.cells.push(Crafty.e("Cell")
+			self.cells.push(Crafty.e("Cell, tile1")
 			      .cell(tiles[i][0], tiles[i][1]));
 		      }
 		      
@@ -63,6 +63,8 @@ Crafty.c("World", {
 		
 		if(t > r.begin+r.duration) {
 			this.unbind("EnterFrame", r.cb);
+			this.angle = r.endingAngle;
+			this.applyTransform();
 			delete this.rotation;
 		}
 	},
