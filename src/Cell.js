@@ -18,13 +18,13 @@ Crafty.c("Cell", {
 		this.position.y = y*this.h;
 		this.x = this.position.x;
 		this.y = this.position.y;
-		console.log(this.position.x);
+		//console.log(this.position.x);
 		return this;
 	},
 	
 	applyTransform: function(x, y, w, h, angle) {
 		//this.rotation = angle;
-		var coef = this.position.x/this.position.y;
+		var coef = this.position.y/this.position.x;
 		
 		var initAngle = Math.atan(coef);
 		angle = Math.PI*angle/180+initAngle;

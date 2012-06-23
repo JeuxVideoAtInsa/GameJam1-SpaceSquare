@@ -21,6 +21,7 @@ Crafty.c("World", {
 		this.h = h;
 		
 		var tiles = {};
+		var self = this;
 		
 		// Load tiles
 		$.ajax({
@@ -28,12 +29,13 @@ Crafty.c("World", {
 		  success: function(string) {
 		      data = $.parseJSON(string);
 		      tiles = data.tiles;
+		      // console.log(tiles);
 		      
 		      for (var i = 0; i<tiles.length; i++) {
-			Crafty.e("World").cells.push(Crafty.e("Cell")
+			self.cells.push(Crafty.e("Cell")
 			      .cell(tiles[i][0], tiles[i][1]));
 		      }
-		      		      
+		      
 		  },
 		  url: 'resources/maps/json/space.json'
 		});
