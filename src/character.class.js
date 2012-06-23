@@ -1,3 +1,14 @@
+function createCharacter(health, player, position, size) {
+	return Crafty.e("2D, Canvas, Color, Box2D, Character").Character(health, player, position, size).box2d({
+      bodyType: 'dynamic',
+      density: 1,
+      friction: 1,
+      restitution: 0.5,
+      shape: "circle"
+    });
+}
+
+
 //-----------------------------------------------------------------------------
 // Constants
 //-----------------------------------------------------------------------------
@@ -22,12 +33,12 @@ Crafty.c('Character', {
 
 	health : 0,
 	state : CHARACTER_STATE_SPAWNING,
-	position : [0,0],
 	speed : 0,
 	weapons : [],
 	currentWeapon : 0,
 	player : 0,
 	weight : 0,
+	moving : false,
 	skin : null,
 
 //-----------------------------------------------------------------------------
@@ -35,18 +46,18 @@ Crafty.c('Character', {
 //-----------------------------------------------------------------------------
 
 	init : function() {
-		this.requires('2D, DOM, SpriteAnimation, Fourway, Box2D');
-		this.box2d({
-			bodyType: 'dynamic'
-		})
-
+		this.requires('2D, Box2D');
+		this.color("#FF0000");
+		this.bind("EnterFrame", this.playerEnterFrame);
+		this.bind("KeyDown", this.playerKeyDown);
+		this.bind("KeyUp", this.playerKeyUp);
 	},
 
 //-----------------------------------------------------------------------------
 // Constructor
 //-----------------------------------------------------------------------------
 
-	Character: function (health, position, player, position, size) {
+	Character: function (health, player, position, size) {
 		this.player = player;
 		this.position = position;
 		this.health = health;
@@ -55,20 +66,32 @@ Crafty.c('Character', {
 		this.w = size[0];
 		this.h = size[1];
 		
-		// Setup animation
-		this.animate("spawn", [[12,0],[13,0],[13,0],[14,0],[14,0]])
-		.animate("die", [[14,0],[13,0],[12,0]])
-		.animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
-		.animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
-		.animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
-		.animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
-		.animate("attack_right", [[15,0], [16,0], [15,0], [17,0]])
-		.animate("attack_left", [[18,0], [19,0], [18,0], [20,0]])
-		.animate("attack_up", [[24,0], [25,0], [24,0], [26,0]])
-		.animate("attack_down", [[21,0], [22,0], [21,0], [23,0]])
-		.onHit("gridBounds", function () {
-		//Move unit out of solid tile
+		// if (this.player == 1) {
+			// this.requires('Fourway');
+		// }
+	
+		this.attr({
+			x: position[0],
+			y: position[1],
+			w: size[0],
+			h: size[1]
 		});
+		
+		
+		// Setup animation
+		// this.animate("spawn", [[12,0],[13,0],[13,0],[14,0],[14,0]])
+		// .animate("die", [[14,0],[13,0],[12,0]])
+		// .animate("walk_right", [[0,0],[1,0],[0,0],[2,0]])
+		// .animate("walk_left", [[3,0],[4,0],[3,0],[5,0]])
+		// .animate("walk_up", [[9,0],[10,0],[9,0],[11,0]])
+		// .animate("walk_down", [[6,0],[7,0],[6,0],[8,0]])
+		// .animate("attack_right", [[15,0], [16,0], [15,0], [17,0]])
+		// .animate("attack_left", [[18,0], [19,0], [18,0], [20,0]])
+		// .animate("attack_up", [[24,0], [25,0], [24,0], [26,0]])
+		// .animate("attack_down", [[21,0], [22,0], [21,0], [23,0]])
+		// .onHit("gridBounds", function () {
+		// //Move unit out of solid tile
+		// });
 		//.bind("EnterFrame", this.move);
 
 		return this;
@@ -77,6 +100,39 @@ Crafty.c('Character', {
 // -----------------------------------------------------------------------------
 // Method - Move
 // -----------------------------------------------------------------------------
+
+  playerEnterFrame : function(e) {
+    var _ref, _ref1;
+    if ((_ref = this._impulse) == null) {
+      this._impulse = new b2Vec2(0, 0);
+    }
+    if ((_ref1 = this._magnitude) == null) {
+      this._magnitude = 0.15;
+    }
+    if ((this._impulse != null) && (this._impulse.x !== 0 || this._impulse.y !== 0)) {
+      this.body.ApplyImpulse(this._impulse, this.body.GetWorldCenter());
+    }
+    return this._impulse.y = 0;
+  },
+  playerKeyDown : function(e) {
+    if (e.key === Crafty.keys['W']) {
+      this._impulse.y += -Math.round(this._magnitude * 1000) / 1000 * 20;
+    }
+    if (e.key === Crafty.keys['A']) {
+      this._impulse.x += -Math.round(this._magnitude * 1000) / 10000;
+    }
+    if (e.key === Crafty.keys['D']) {
+      return this._impulse.x += Math.round(this._magnitude * 1000) / 10000;
+    }
+  },
+  playerKeyUp : function(e) {
+    if (e.key === Crafty.keys['A']) {
+      this._impulse.x -= -Math.round(this._magnitude * 1000) / 10000;
+    }
+    if (e.key === Crafty.keys['D']) {
+      return this._impulse.x -= Math.round(this._magnitude * 1000) / 10000;
+    }
+  },
 
 	// move: function CharacterMove() {
 		// if (this.state == CHARACTER_STATE_DESTROYING) {
