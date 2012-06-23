@@ -39,7 +39,7 @@ int main (int argc, char* argv[])
 	TiXmlDocument tmxFile(argv[1]);
 	bool loadOkay = tmxFile.LoadFile();
 
-	if(!loadOkay) {
+	if (!loadOkay) {
 		cerr << "Could not load input file" << endl;;
 	}
 	else {
@@ -82,17 +82,14 @@ int main (int argc, char* argv[])
 			vector<TiXmlElement*> items;
 			
 			output << "\"tiles\" : [\n" ;
-			while (blocNode != 0)
-			{
+			while (blocNode != 0) {
 				parsedNum = blocNode->ToElement()->Attribute("gid");
 				blocNode = blocNode->NextSibling();
 				
-				if (parsedNum != "0") 
-				{
+				if (parsedNum != "0")  {
 					// To JSON
 					output << "    [" << i << ", " << j << ", " << parsedNum << "]";
-					if (blocNode != 0) 
-					{
+					if (blocNode != 0) {
 						output << ",";
 					}
 					output << "\n";
@@ -100,8 +97,7 @@ int main (int argc, char* argv[])
 				}
 				
 				i++;
-				if (i == width)
-				{
+				if (i == width) {
 					i = 0;
 					j++;
 				}
