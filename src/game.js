@@ -22,7 +22,7 @@ window.onload = function() {
 	Crafty.scene("main", function (e) {
 		debug("main scene");
 		var pl = Crafty.e("World").world(430, 430, 600, 600);
-		
+		var box = createCharacter(10, 1, [10, 10], [10, 20]);
 	});
 	
 	Crafty.scene("loading");
