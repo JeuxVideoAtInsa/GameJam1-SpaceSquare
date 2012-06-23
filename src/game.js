@@ -23,12 +23,14 @@ window.onload = function() {
 	
 	Crafty.scene("main", function (e) {
 		debug("main scene");
+
 		var pl = Crafty.e("World").world(
 			OS.config.canvas.width/2, 
 			OS.config.canvas.height/2, 
 			OS.config.scene.width, 
 			OS.config.scene.height);
-		var box = createCharacter(10, 1, [10, 10], [10, 20]);
+		var box = createCharacter(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [20, 40]);
+
 	});
 	
 	Crafty.scene("loading");
