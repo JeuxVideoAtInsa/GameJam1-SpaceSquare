@@ -18,10 +18,15 @@ Crafty.c("Cell", {
 		this.x = this.position.x;
 		this.y = this.position.y;
 		
+		this.animate("blink",[[0,0],[1,0]])
+		  .bind("EnterFrame", this.updateTile);
+		
+		
 		return this;
 	},
 	
 	applyTransform: function(x, y, w, h, angle, cosinus, sinus) {
+		
 		this.rotation = angle;
 		
 		angle = Math.PI*angle/180;//+initAngle;
@@ -31,6 +36,11 @@ Crafty.c("Cell", {
 		this.x = xd*cosinus - yd*sinus + x;
 		this.y = xd*sinus + yd*cosinus + y;
 		//console.log(this.pos.x + " " + this.pos.y + " - " + this.x + " " + this.y);
+	},
+	
+	updateTile: function() {
+		this.animate("blink", 15);
+		
 	}
 	
 });

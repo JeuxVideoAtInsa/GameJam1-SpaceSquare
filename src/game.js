@@ -7,9 +7,7 @@ function debug(str) {
 window.onload = function() {
 	Crafty.init(860, 860, 60);
 	
-	Crafty.sprite(15, "resources/img/tiles/simple_tile.png", {
-			tile1: [0, 0]
-		});
+	loadSprites();
 	
 	Crafty.scene("loading", function () {
 	
@@ -27,5 +25,11 @@ window.onload = function() {
 	
 	Crafty.scene("loading");
 	
+	
+	function loadSprites() {
+	  Crafty.sprite(15, "resources/img/tiles/simple_tile.png", {
+			tile1: [0, 0]
+		});
+	}
 	
 }
