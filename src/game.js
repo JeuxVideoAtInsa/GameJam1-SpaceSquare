@@ -11,7 +11,11 @@ window.onload = function() {
 	
 	Crafty.scene("loading", function () {
 	
-		Crafty.load(["resources/img/tiles/simple_tile.png"], function () {
+		Crafty.load(
+			[
+				"resources/img/tiles/simple_tile.png",
+				"resources/img/monster.png"
+			], function () {
 			Crafty.scene("main");
 		});
 
@@ -31,9 +35,13 @@ window.onload = function() {
 	
 	
 	function loadSprites() {
-	  Crafty.sprite(OS.config.tile.width, "resources/img/tiles/simple_tile.png", {
+		Crafty.sprite(OS.config.tile.width, "resources/img/tiles/simple_tile.png", {
 			tile1: [0, 0]
 		});
+		Crafty.sprite(OS.config.characters.monster.width, "resources/img/monster.png", {
+			monster: [0, 0]
+		});
+	
 	}
 	
 }
