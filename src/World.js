@@ -1,35 +1,46 @@
 Crafty.c("World", {
-	width: 0,
-	height: 0,
+	angle: 0,
 	cells: [],
-	background : {},
 	
 	init: function() {
 		this.cells = [];
-
-		background = Crafty.e("2D, DOM, bg")
-			.attr({ x:0 , y:0, z:-1 });
+		this.angle = 0;
+			
+		this.bind("EnterFrame", function() {
+			this.angle = (this.angle+1)%360;
+			this.applyTransform();
+		});
 
 		return this;
 	},
 	
-	world: function(w, h){
-		this.width = w;
-		this.height = h;
+	world: function(x, y, w, h){
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
 		
+		
+		this.cells.push(Crafty.e("Cell")
+			.cell(20, 20));
+				this.cells.push(Crafty.e("Cell")
+			.cell(20, 21));
 		for(var i=0; i<40; i++) {
 		this.cells.push(Crafty.e("Cell")
 			.cell(i, 2));
 		}
-		for(var i=40; i<50; i++) {
-		this.cells.push(Crafty.e("Cell")
-			.cell(i, i/2));
-		}
-		this.cells.push(Crafty.e("Cell")
-			.cell(3, 2));
-		this.cells.push(Crafty.e("Cell")
-			.cell(40, 6));
 
 		return this;
 	},
+	
+	applyTransform: function() {
+		for(var i in this.cells) {
+			this.cells[i].applyTransform(
+				this.x,
+				this.y,
+				this.w,
+				this.h,
+				this.angle);
+		}
+	}
 });

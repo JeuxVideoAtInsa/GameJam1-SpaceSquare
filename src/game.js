@@ -9,7 +9,7 @@ window.onload = function() {
 	
 	Crafty.scene("main", function (e) {
 		debug("main scene");
-		var pl = Crafty.e("World").world();
+		var pl = Crafty.e("World").world(425, 425, 600, 600);
 		
 	});
 	
