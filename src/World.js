@@ -37,7 +37,7 @@ Crafty.c("World", {
 		      // console.log(tiles);
 		      
 		      for (var i = 0; i<tiles.length; i++) {
-			self.cells.push(Crafty.e("Cell")
+			self.cells.push(Crafty.e("Cell, tile1")
 			      .cell(tiles[i][0], tiles[i][1]));
 		      }
 		      

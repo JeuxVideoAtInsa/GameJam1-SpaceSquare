@@ -1,13 +1,12 @@
 Crafty.c("Cell", {
 
 	init: function() {
-		this.requires('2D, Canvas, Color');
+		this.requires("2D, Canvas, SpriteAnimation");
 		this.w = 15;
 		this.h = 15;
 		this.position = new Object();
 		this.position.x = 0;
 		this.position.y = 0;
-		this.color("#FF00FF");
 		this.origin("middle middle");
 		
 		return this;
@@ -18,6 +17,7 @@ Crafty.c("Cell", {
 		this.position.y = y*this.h;
 		this.x = this.position.x;
 		this.y = this.position.y;
+		
 		return this;
 	},
 	
