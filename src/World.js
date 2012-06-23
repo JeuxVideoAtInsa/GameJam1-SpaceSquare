@@ -32,6 +32,27 @@ Crafty.c("World", {
 	this.cells.push(Crafty.e("Cell")
 	      .cell(tiles[i][0], tiles[i][1]));
       }
+/*
+		var tiles = {};
+		var self = this;
+		
+		// Load tiles
+		$.ajax({
+		  dataType: 'text',
+		  success: function(string) {
+		      data = $.parseJSON(string);
+		      tiles = data.tiles;
+		      // console.log(tiles);
+		      
+		      for (var i = 0; i<tiles.length; i++) {
+			self.cells.push(Crafty.e("Cell")
+			      .cell(tiles[i][0], tiles[i][1]));
+		      }
+		      
+		  },
+		  url: 'resources/maps/json/space.json'
+		});
+*/
 
 		return this;
 	},
