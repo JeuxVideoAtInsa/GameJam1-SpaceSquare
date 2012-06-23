@@ -1,21 +1,14 @@
 Crafty.c("World", {
 	angle: 0,
 	cells: [],
+	rotation: null,
 	
 	init: function() {
 		this.cells = [];
+		this.rotation = null,
 		this.angle = 0;
 		this.id=0;
 			
-		this.bind("EnterFrame", function() {
-			this.id++;
-			if(this.id%2==0) {
-				this.angle = (this.angle+0.5)%360;
-			
-				this.applyTransform();
-			}
-		});
-
 		return this;
 	},
 	
@@ -45,8 +38,33 @@ Crafty.c("World", {
 		  url: 'resources/maps/json/space.json'
 		});
 
-
+		this.rotate(90);
 		return this;
+	},
+	
+	rotate: function(degree) {
+		this.rotation = {
+			begin: new Date().getTime(),
+			duration: 2000,
+			beginAngle: this.angle,
+			endingAngle: this.angle+degree,
+			cb: function() {
+				this.updateRotation();
+			}};
+		
+		this.bind("EnterFrame", this.rotation.cb);
+	},
+	
+	updateRotation: function() {
+		var r = this.rotation;
+		var t = new Date().getTime();
+		this.angle = r.beginAngle + (r.endingAngle - r.beginAngle)*(t-r.begin)/r.duration;
+		this.applyTransform();
+		
+		if(t > r.begin+r.duration) {
+			this.unbind("EnterFrame", r.cb);
+			delete this.rotation;
+		}
 	},
 	
 	applyTransform: function() {
