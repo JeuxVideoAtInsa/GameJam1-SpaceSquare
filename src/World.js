@@ -17,18 +17,24 @@ Crafty.c("World", {
 		this.width = w;
 		this.height = h;
 		
-		for(var i=0; i<40; i++) {
-		this.cells.push(Crafty.e("Cell")
-			.cell(i, 2));
-		}
-		for(var i=40; i<50; i++) {
-		this.cells.push(Crafty.e("Cell")
-			.cell(i, i/2));
-		}
-		this.cells.push(Crafty.e("Cell")
-			.cell(3, 2));
-		this.cells.push(Crafty.e("Cell")
-			.cell(40, 6));
+		var tiles = {};
+		
+		// Load tiles
+		$.ajax({
+		  dataType: 'text',
+		  success: function(string) {
+		      data = $.parseJSON(string);
+		      tiles = data.tiles;
+		      
+		      for (var i = 0; i<tiles.length; i++) {
+			Crafty.e("World").cells.push(Crafty.e("Cell")
+			      .cell(tiles[i][0], tiles[i][1]));
+		      }
+		      		      
+		  },
+		  url: 'resources/maps/json/space.json'
+		});
+
 
 		return this;
 	},
