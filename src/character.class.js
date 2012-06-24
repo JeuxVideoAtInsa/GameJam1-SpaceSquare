@@ -42,7 +42,7 @@ Crafty.c('Character', {
 
 	init : function() {
 		this.requires("2D, Canvas, Collision, Gravity, SpriteAnimation");
-		this.gravity('Cell');
+		
 		// this.collisionDepth = 0;
 		this.bind('Moved', function(from) {
 			// if (this.collisionDepth > OS.config.collision.calculsDepth) {
@@ -106,15 +106,16 @@ Crafty.c('Character', {
 // Constructor
 //-----------------------------------------------------------------------------
 
-	Character: function (health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size) {
+	Character: function (health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position) {
 		this.player = player;
 		this.health = health;
 		this.initialSpeed = initialSpeed;
 		this.maxSpeed = maxSpeed;
 		this.numberJumpMax = numberJumpMax;
 		this.gravityConst(weight);
+		this.gravity('Cell', {w:(OS.config.characters.astronaut.width-OS.config.characters.astronaut.widthSprite),e:0,n:0,s:0});
 		this.collision(
-			new Crafty.polygon([0,0], [0,size[1]], [size[0],size[1]], [0,size[1]])
+			new Crafty.polygon([0,0], [0,OS.config.characters.astronaut.height], [OS.config.characters.astronaut.width,OS.config.characters.astronaut.height], [OS.config.characters.astronaut.width,0])
 		);
 		
 		if (this.player == 1) {
@@ -129,8 +130,8 @@ Crafty.c('Character', {
 		this.attr({
 			x: position[0],
 			y: position[1],
-			w: size[0],
-			h: size[1]
+			w: OS.config.characters.astronaut.widthSprite,
+			h: OS.config.characters.astronaut.height
 		});
 		
 		

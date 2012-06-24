@@ -11,7 +11,7 @@ Crafty.c("World", {
 		this.rotation = null,
 		this.angle = 0;
 		this.id=0;
-			
+	
 		return this;
 	},
 	
@@ -46,8 +46,7 @@ Crafty.c("World", {
 							curCells = [];
 							curCells.push(cell);
 						} else {
-							self.cells.push(Crafty.e("Structure")
-								.structure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
+							self.cells.push(createStructure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
 								.addCells(curCells));
 							curCells = [];
 							curCells.push(cell);
@@ -58,8 +57,7 @@ Crafty.c("World", {
 					self.cells.push(cell);
 					curCells = [];
 				} else if(curCells.length > 1) {
-					self.cells.push(Crafty.e("Structure")
-						.structure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
+					self.cells.push(createStructure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
 						.addCells(curCells));
 					curCells = [];
 					curCells.push(cell);
@@ -92,19 +90,20 @@ Crafty.c("World", {
 		
 		this.bind('KeyDown', function(e) {
 			if(e.key == Crafty.keys['R']) {
-				this.rotate(90);
+				this.rotate(90, 1000);
 			}
 				
 		});
 		
 		//this.rotate(90);
+
 		return this;
 	},
 	
-	rotate: function(degree) {
+	rotate: function(degree, dur) {
 		this.rotation = {
 			begin: new Date().getTime(),
-			duration: 2000,
+			duration: dur,
 			beginAngle: this.angle,
 			endingAngle: this.angle+degree,
 			cb: function() {
@@ -125,6 +124,17 @@ Crafty.c("World", {
 			this.angle = r.endingAngle;
 			this.applyTransform();
 			delete this.rotation;
+			
+			this.bind("EnterFrame", function(r) {
+				for(var i in this.cells) {
+					for (var j in this.cells[i].map.points) {
+						for (var k in this.cells[i].map.points[j]) {
+							this.cells[i].map.points[j][k] = Math.round(this.cells[i].map.points[j][k]);
+						}
+					}
+				}
+				this.unbind("EnterFrame");
+			});
 		}
 	},
 	
@@ -141,5 +151,9 @@ Crafty.c("World", {
 				cosinus,
 				sinus);
 		}
+	},
+	
+	generateWorld: function(angle) {
+		
 	}
 });
