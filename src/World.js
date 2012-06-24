@@ -30,7 +30,7 @@ Crafty.c("World", {
 				
 				var curCells = [];
 				for (var i = 0; i<tiles.length; i++) {
-					var cell = Crafty.e("Cell, tile1")
+					var cell = Crafty.e("Cell, block")
 						.cell(tiles[i][0], tiles[i][1]);
 					if(curCells.length == 0) {
 						curCells.push(cell);
