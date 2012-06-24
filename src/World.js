@@ -16,8 +16,8 @@ Crafty.c("World", {
 	},
 	
 	world: function(x, y, w, h){
-		//this.x = x;
-		//this.y = y;
+		this.x = x;
+		this.y = y;
 		this.w = w;
 		this.h = h;
 		
@@ -87,20 +87,19 @@ Crafty.c("World", {
 			}
 			
 		});
-		
 		this.bind('KeyDown', function(e) {
 			if(e.key == Crafty.keys['R']) {
-				this.rotate(90, 1000);
+				this.rotateWorld(90, 1000);
 			}
 				
 		});
 		
-		//this.rotate(90);
+		this.rotateWorld(0, 1000);
 
 		return this;
 	},
 	
-	rotate: function(degree, dur) {
+	rotateWorld: function(degree, dur) {
 		this.rotation = {
 			begin: new Date().getTime(),
 			duration: dur,
@@ -127,9 +126,11 @@ Crafty.c("World", {
 			
 			this.bind("EnterFrame", function(r) {
 				for(var i in this.cells) {
-					for (var j in this.cells[i].map.points) {
-						for (var k in this.cells[i].map.points[j]) {
-							this.cells[i].map.points[j][k] = Math.round(this.cells[i].map.points[j][k]);
+					if(typeof this.cells[i].map !== "undefined") {
+						for (var j in this.cells[i].map.points) {
+							for (var k in this.cells[i].map.points[j]) {
+								this.cells[i].map.points[j][k] = Math.round(this.cells[i].map.points[j][k]);
+							}
 						}
 					}
 				}
