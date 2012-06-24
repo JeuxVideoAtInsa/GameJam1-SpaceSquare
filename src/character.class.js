@@ -1,5 +1,5 @@
 function createCharacter(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size) {
-	return Crafty.e("Character").Character(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size);
+	return Crafty.e("Character, astronaut").Character(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size);
 }
 
 
@@ -50,9 +50,9 @@ Crafty.c('Character', {
 //-----------------------------------------------------------------------------
 
 	init : function() {
-		this.requires('2D, Canvas, Color, Collision, Gravity');
+		this.requires('2D, Canvas, Collision, Gravity');
 		this.gravity('Cell');
-		this.color("#FF0000");
+
 	},
 
 //-----------------------------------------------------------------------------

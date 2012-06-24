@@ -29,7 +29,6 @@ Crafty.c("Structure", {
 		for(var i in cells) {
 			this.cells.push(cells[i]);
 		}
-		console.log("struct " + this.x + " " + this.y + " " + this.cells.length);
 		return this;
 	},
 	
