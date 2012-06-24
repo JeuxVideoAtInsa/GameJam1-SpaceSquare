@@ -23,19 +23,46 @@ Crafty.c("World", {
 		
 		// Load tiles
 		$.ajax({
-		  dataType: 'text',
-		  success: function(string) {
-		      data = $.parseJSON(string);
-		      tiles = data.tiles;
-		      // console.log(tiles);
-		      
-		      for (var i = 0; i<tiles.length; i++) {
-				self.cells.push(Crafty.e("Cell, tile1")
-			      .cell(tiles[i][0], tiles[i][1]));
-		      }
-		      
-		  },
-		  url: 'resources/maps/json/space.json'
+			dataType: 'text',
+			success: function(string) {
+				data = $.parseJSON(string);
+				tiles = data.tiles;
+				
+				var curCells = [];
+				for (var i = 0; i<tiles.length; i++) {
+					var cell = Crafty.e("Cell, tile1")
+						.cell(tiles[i][0], tiles[i][1]);
+					if(curCells.length == 0) {
+						curCells.push(cell);
+					} else {
+						var last = curCells[curCells.length-1];
+						if(last.x == (cell.x-cell.w) && last.y == cell.y) {
+							curCells.push(cell);
+						} else if(curCells.length === 1) {
+							self.cells.push(last);
+							curCells = [];
+							curCells.push(cell);
+						} else {
+							self.cells.push(Crafty.e("Structure")
+								.structure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
+								.addCells(curCells));
+							curCells = [];
+							curCells.push(cell);
+						}
+					}
+				}
+				if(curCells.length === 1) {
+					self.cells.push(cell);
+					curCells = [];
+				} else if(curCells.length > 1) {
+					self.cells.push(Crafty.e("Structure")
+						.structure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
+						.addCells(curCells));
+					curCells = [];
+					curCells.push(cell);
+				}
+			},
+			url: 'resources/maps/json/space.json'
 		});
 		
 		// Add monsters (TEST)

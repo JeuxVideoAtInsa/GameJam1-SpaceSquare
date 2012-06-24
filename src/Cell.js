@@ -1,4 +1,5 @@
 Crafty.c("Cell", {
+	position: null,
 
 	init: function() {
 
@@ -31,7 +32,6 @@ Crafty.c("Cell", {
 		
 		this.rotation = angle;
 		
-		angle = Math.PI*angle/180;//+initAngle;
 		var xd = this.position.x-w/2;
 		var yd = this.position.y-h/2;
 		
