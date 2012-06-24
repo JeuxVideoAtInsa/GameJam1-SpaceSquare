@@ -3,8 +3,8 @@ Crafty.c("Structure", {
 
 	init: function() {
 		this.requires('2D');
-		this.w = 15;
-		this.h = 15;
+		this.w = OS.config.tile.width;
+		this.h = OS.config.tile.height;
 		this.z = 1;
 		this.position = new Object();
 		this.position.x = 0;
