@@ -20,8 +20,8 @@ OS.config = {
 	
 	characters: {
 		astronaut: {
-			width: 20,
-			height: 40,
+			width: 33,
+			height: 45,
 			speed: 20,
 			jump: 20
 		},
@@ -29,7 +29,7 @@ OS.config = {
 		monster: {
 			width: 20,
 			height: 20,
-			speed: 10,
+			speed: 1,
 			jump: 10
 		}
 	},

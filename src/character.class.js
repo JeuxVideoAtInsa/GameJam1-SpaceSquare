@@ -1,5 +1,5 @@
 function createCharacter(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size) {
-	return Crafty.e("Character").Character(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size);
+	return Crafty.e("Character, astronaut").Character(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size);
 }
 
 
@@ -14,6 +14,14 @@ var CHARACTER_STATE_DESTROYING = 2;
 // Walking directions :
 var CHARACTER_DIR_WEST = 0;
 var CHARACTER_DIR_EAST = 1;
+
+//-----------------------------------------------------------------------------
+// Globals
+//-----------------------------------------------------------------------------
+
+// Character position
+var Pos;
+
 
 //-----------------------------------------------------------------------------
 // Character object
@@ -42,9 +50,8 @@ Crafty.c('Character', {
 //-----------------------------------------------------------------------------
 
 	init : function() {
-		this.requires('2D, Canvas, Color, Collision, Gravity');
+		this.requires('2D, Canvas, Collision, Gravity');
 		this.gravity('Cell');
-		this.color("#FF0000");
 		this.bind('Moved', function(from) {
 			if(this.hit('Cell')){
 				this.attr({x: from.x, y:from.y});
