@@ -1,5 +1,5 @@
 function createCharacter(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size) {
-	return Crafty.e("Character, astronaut").Character(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size);
+	return Crafty.e("Character").Character(health, weight, initialSpeed, maxSpeed, numberJumpMax, player, position, size);
 }
 
 
@@ -14,14 +14,6 @@ var CHARACTER_STATE_DESTROYING = 2;
 // Walking directions :
 var CHARACTER_DIR_WEST = 0;
 var CHARACTER_DIR_EAST = 1;
-
-//-----------------------------------------------------------------------------
-// Globals
-//-----------------------------------------------------------------------------
-
-// Character position
-var Pos;
-
 
 //-----------------------------------------------------------------------------
 // Character object
@@ -44,7 +36,6 @@ Crafty.c('Character', {
 	player : 0,
 	moving : false,
 	skin : null,
-	oldDir:{x:0, y:0},
 
 //-----------------------------------------------------------------------------
 // Init
@@ -130,33 +121,7 @@ Crafty.c('Character', {
 			h: size[1]
 		});
 		
-		this.animate("spawn_left", [[0,0]]);
-		this.animate("spawn_right", [[0,1]]);
-		this.animate("walk_left", [[0,0],[1,0],[2,0],[3,0]]);
-		this.animate("walk_right", [[0,1],[1,1],[2,1],[3,1]]);
 		
-		this.bind("NewDirection", function(newDir) {
-			
-			debug(newDir);
-			
-			if (newDir.x < 0) {
-				this.stop().animate("walk_left", OS.config.animation.characters.astronaut.walk,-1);
-				this.oldDir.x = newDir.x;
-			} else if (newDir.x > 0) {
-				this.stop().animate("walk_right", OS.config.animation.characters.astronaut.walk,-1);
-				this.oldDir.x = newDir.x;
-			} else {
-				if (this.oldDir.x < 0) {
-					this.stop().animate("spawn_left", OS.config.animation.characters.astronaut.walk,1);
-				} else if (this.oldDir.x > 0) {
-					this.stop().animate("spawn_right", OS.config.animation.characters.astronaut.walk,1);
-				}
-				
-			}
-			
-			
-		
-		});
 		
 		//this.animate("walk_right", [[0, 0],[1,0]]);
 		// Setup animation
