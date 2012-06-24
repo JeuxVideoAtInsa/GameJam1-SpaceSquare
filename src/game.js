@@ -4,6 +4,9 @@ function debug(str) {
 	if(debugging) console.log(str);
 }
 
+
+var Player;
+
 window.onload = function() {
 	Crafty.init(OS.config.canvas.width, OS.config.canvas.width, OS.config.framerate);
 	
@@ -30,8 +33,7 @@ window.onload = function() {
 			OS.config.canvas.height/2, 
 			OS.config.scene.width, 
 			OS.config.scene.height);
-		var box = createCharacter(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [33, 45]);
-
+			Player = createCharacter(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [33, 45]);
 	});
 	
 	Crafty.scene("loading");
