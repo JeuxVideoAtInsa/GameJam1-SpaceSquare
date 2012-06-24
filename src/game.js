@@ -5,7 +5,7 @@ function debug(str) {
 }
 
 window.onload = function() {
-	Crafty.init(860, 860, 60);
+	Crafty.init(860, 860, 40);
 	
 	Crafty.scene("main", function (e) {
 		debug("main scene");
