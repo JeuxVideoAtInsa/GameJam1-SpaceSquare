@@ -33,7 +33,9 @@ window.onload = function() {
 			OS.config.canvas.height/2, 
 			OS.config.scene.width, 
 			OS.config.scene.height);
-			Player = createCharacter(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [33, 45]);
+		Player = createCharacter(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [33, 45]);
+		var box = createCharacter(10, 2, {x:5, y:30}, {x:10, y:40}, 2, 2, [250, 200], [33, 45]);
+
 	});
 	
 	Crafty.scene("loading");
