@@ -60,8 +60,8 @@ Crafty.c('Character', {
 			// }
 			var hitted = this.hit('Cell')
 			if(hitted){
-				var oldX = this._x;
-				var oldY = this._y;
+				// var oldX = this._x;
+				// var oldY = this._y;
 				this.x = from.x;
 				this.y = from.y;
 				// for (var i = 0; i < hitted.length; i++) {
@@ -75,8 +75,8 @@ Crafty.c('Character', {
 			else {
 				hitted = this.hit('Character')
 				if(hitted){
-					var oldX = this._x;
-					var oldY = this._y;
+					// var oldX = this._x;
+					// var oldY = this._y;
 					this.x = from.x;
 					this.y = from.y;
 					// for (var i = 0; i < hitted.length; i++) {
