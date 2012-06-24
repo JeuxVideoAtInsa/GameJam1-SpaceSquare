@@ -21,7 +21,7 @@ OS.config = {
 	characters: {
 		astronaut: {
 			width: 33,
-			height: 45,
+			height: 47,
 			speed: 20,
 			jump: 20
 		},

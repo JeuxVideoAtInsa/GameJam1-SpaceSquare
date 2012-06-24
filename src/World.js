@@ -72,7 +72,7 @@ Crafty.c("World", {
 		monsters.push(Crafty.e("Monster, monster").monster(300, 56, AI_STUPID));
 		
 		
-		//this.rotate(90);
+		this.rotate(90);
 		return this;
 	},
 	
