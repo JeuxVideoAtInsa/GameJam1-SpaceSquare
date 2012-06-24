@@ -18,7 +18,7 @@ window.onload = function() {
 			[
 				"resources/img/tiles/simple_tile.png",
 				"resources/img/monster.png",
-				"resources/img/animation/spaceman/static/Statique.png",
+				"resources/img/animation/spaceman/moving/moving.png",
 				"resources/img/block/blocks.png"
 			], function () {
 			Crafty.scene("main");
@@ -48,7 +48,7 @@ window.onload = function() {
 		Crafty.sprite(OS.config.characters.monster.width, "resources/img/monster.png", {
 			monster: [0, 0]
 		});
-		Crafty.sprite(OS.config.characters.astronaut.width, OS.config.characters.astronaut.height, "resources/img/animation/spaceman/static/Statique.png", {
+		Crafty.sprite(OS.config.characters.astronaut.width, OS.config.characters.astronaut.height, "resources/img/animation/spaceman/moving/moving.png", {
 			astronaut: [0, 0]
 		});
 		Crafty.sprite(OS.config.tile.width, OS.config.tile.height, "resources/img/block/blocks.png", {

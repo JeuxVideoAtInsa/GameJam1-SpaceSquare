@@ -127,6 +127,7 @@ Crafty.c('Character', {
 		});
 		
 		
+		//this.animate("walk_right", [[0, 0],[1,0]]);
 		// Setup animation
 		// this.animate("spawn", [[12,0],[13,0],[13,0],[14,0],[14,0]])
 		// .animate("die", [[14,0],[13,0],[12,0]])
