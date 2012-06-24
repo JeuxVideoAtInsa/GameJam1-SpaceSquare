@@ -13,6 +13,41 @@ Crafty.c("Cell", {
 		this.collision(
 			new Crafty.polygon([0,0], [0,OS.config.tile.height], [OS.config.tile.width,OS.config.tile.height], [OS.config.tile.width,0])
 		);
+		this.bind('Moved', function(from) {
+			// if (this.collisionDepth > OS.config.collision.calculsDepth) {
+				// return;
+			// }
+			var hitted = this.hit('Character')
+			if(hitted){
+				for (var i = 0; i < hitted.length; i++) {
+					hitted[i].obj.x -= Math.abs(hitted[i].overlap)*hitted[i].normal.x/2;
+					hitted[i].obj.y += Math.abs(hitted[i].overlap)*hitted[i].normal.y/2;
+					/*
+					hitted[i].obj.health-=10;
+					this.health-=10;
+					
+					if (hitted[i].obj.health <= 0) {
+						hitted[i].obj.kill();
+					}
+					*/
+				}
+				
+				// for (var i = 0; i < hitted.length; i++) {
+					// var energy = hitted[i].obj._gravityConst*hitted[i].obj._speed - this._gravityConst*this._speed;
+					// hitted[i].obj.y += energy*hitted[i].normal.y;
+					// hitted[i].obj.x -= energy*hitted[i].normal.x;
+					// this.x = from.x-energy*hitted[i].normal.x;
+					// this.y = from.y+energy*hitted[i].normal.y;
+				// }
+				// this.collisionDepth++;
+				// this.trigger('Moved', { x: oldX, y: oldY });
+				// else {
+					// this.collisionDepth = 0;
+				// }
+			}
+			
+			
+		});
 		return this;
 	},
 
@@ -38,6 +73,8 @@ Crafty.c("Cell", {
 		this.x = xd*cosinus - yd*sinus + x;
 		this.y = xd*sinus + yd*cosinus + y;
 		//console.log(this.pos.x + " " + this.pos.y + " - " + this.x + " " + this.y);
+		
+		this.trigger("Moved", null);
 	}
 	
 });

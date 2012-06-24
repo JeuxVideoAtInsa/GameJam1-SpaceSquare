@@ -16,6 +16,8 @@ Crafty.c("Spaceman", {
 		this.position.y = 0;
 		this.origin("middle middle");
 		this._speed = OS.config.characters.astronaut.speed;
+		// Add a weapon
+		this.weapons.push(Crafty.e("Weapon").weapon("wrench", 50));
 		return this;
 	},
 	
@@ -24,6 +26,9 @@ Crafty.c("Spaceman", {
 		this.animate("spawn_right", [[0,1]]);
 		this.animate("walk_left", [[0,0],[1,0],[2,0],[3,0]]);
 		this.animate("walk_right", [[0,1],[1,1],[2,1],[3,1]]);
+		
+		this.animate("attack_left", [[0,1],[1,1],[2,1],[3,1]]);
+		this.animate("attack_right", [[0,1],[1,1],[2,1],[3,1]]);
 		
 		this.bind("NewDirection", function(newDir) {
 

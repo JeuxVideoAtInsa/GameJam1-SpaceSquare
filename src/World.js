@@ -2,8 +2,11 @@ Crafty.c("World", {
 	angle: 0,
 	cells: [],
 	rotation: null,
+	monsters: [],
+	nbFrames: 0,
 	
 	init: function() {
+		this.requires("2D, Canvas");
 		this.cells = [];
 		this.rotation = null,
 		this.angle = 0;
@@ -63,13 +66,41 @@ Crafty.c("World", {
 			url: 'resources/maps/json/space.json'
 		});
 		
-
+		// Add monsters (TEST)
+		var begin = new Date().getTime();
+		this.bind("EnterFrame",  function() {
+			
+			this.nbFrames++;
+			
+			if (this.nbFrames%60 == 0) {
+				var tempX = Crafty.math.randomInt(2,OS.config.nbTiles-2);
+				var tempY = Crafty.math.randomInt(2,OS.config.nbTiles-2);
+	
+				this.monsters.push(Crafty.e("Monster, monster").monster(tempX, tempY, AI_DRUNK));
+			}
+			
+			if (this.nbFrames >= 10*60) {
+				for (var i = 0; i < this.monsters.length; i++) {
+					this.monsters[i].kill();
+				}
+				this.nbFrames = 0;
+			}
+			
+		});
 		
-		this.rotate(360, 10000);
+		this.bind('KeyDown', function(e) {
+			if(e.key == Crafty.keys['R']) {
+				this.rotateWorld(90, 1000);
+			}
+				
+		});
+
+		this.rotateWorld(360, 10000);
+
 		return this;
 	},
 	
-	rotate: function(degree, dur) {
+	rotateWorld: function(degree, dur) {
 		this.rotation = {
 			begin: new Date().getTime(),
 			duration: dur,
@@ -102,14 +133,14 @@ Crafty.c("World", {
 							this.cells[i].cells[j].y = Math.round(this.cells[i].y);
 							this.cells[i].cells[j].w = Math.round(this.cells[i].w);
 							this.cells[i].cells[j].h = Math.round(this.cells[i].h);
-							this.cells[i].cells[j]._mbr = null;
 						}
 					}
-					this.cells[i].x = Math.round(this.cells[i].x);
-					this.cells[i].y = Math.round(this.cells[i].y);
-					this.cells[i].w = Math.round(this.cells[i].w);
-					this.cells[i].h = Math.round(this.cells[i].h);
-					this.cells[i]._mbr = null;
+					else {
+						this.cells[i].x = Math.round(this.cells[i].x);
+						this.cells[i].y = Math.round(this.cells[i].y);
+						this.cells[i].w = Math.round(this.cells[i].w);
+						this.cells[i].h = Math.round(this.cells[i].h);
+					}
 				}
 				this.unbind("EnterFrame");
 			});

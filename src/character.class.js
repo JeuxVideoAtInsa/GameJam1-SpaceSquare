@@ -35,7 +35,6 @@ Crafty.c('Character', {
 	currentWeapon : 0,
 	player : 0,
 	moving : false,
-	skin : null,
 
 //-----------------------------------------------------------------------------
 // Init
@@ -53,13 +52,14 @@ Crafty.c('Character', {
 			if(hitted){
 				// var oldX = this._x;
 				// var oldY = this._y;
-				this.x = from.x;
-				this.y = from.y;
-				// for (var i = 0; i < hitted.length; i++) {
+
+				for (var i = 0; i < hitted.length; i++) {
+					this.x = from.x + Math.abs(hitted[i].overlap)*hitted[i].normal.x/2;
+					this.y = from.y - Math.abs(hitted[i].overlap)*hitted[i].normal.y/2;
 					// var energy = this._gravityConst*this._speed*this._speed;
 					// this.x = from.x-energy*hitted[i].normal.x;
 					// this.y = from.y+energy*hitted[i].normal.y;
-				// }
+				}
 				// this.collisionDepth++;
 				// this.trigger('Moved', { x: oldX, y: oldY });
 			}
@@ -70,6 +70,19 @@ Crafty.c('Character', {
 					// var oldY = this._y;
 					this.x = from.x;
 					this.y = from.y;
+					
+					for (var i = 0; i < hitted.length; i++) {
+						this.attack(hitted[i].obj);
+						/*
+						hitted[i].obj.health-=10;
+						this.health-=10;
+						
+						if (hitted[i].obj.health <= 0) {
+							hitted[i].obj.kill();
+						}
+						*/
+					}
+					
 					// for (var i = 0; i < hitted.length; i++) {
 						// var energy = hitted[i].obj._gravityConst*hitted[i].obj._speed - this._gravityConst*this._speed;
 						// hitted[i].obj.y += energy*hitted[i].normal.y;
@@ -87,7 +100,7 @@ Crafty.c('Character', {
 			
 			
 		});
-		
+	
 	},
 
 //-----------------------------------------------------------------------------
@@ -142,5 +155,34 @@ Crafty.c('Character', {
 		//.bind("EnterFrame", this.move);
 
 		return this;
+	},
+
+//-----------------------------------------------------------------------------
+// Fight
+//-----------------------------------------------------------------------------
+	
+	attack: function(ennemy) {
+	
+		if (!this.player && !ennemy.player) {
+			return;
+		}
+		
+		ennemy.health-=this.weapons[0].damage;
+		this.health -= ennemy.weapons[0].damage;
+		
+		if (ennemy.health <= 0) {
+			ennemy.kill();
+		}
+		
+		if (this.health <= 0) {
+			this.kill();
+		}
+
+	
+	},
+	
+	kill: function() {
+		this.stop();
+		this.destroy();
 	}
 });

@@ -16,6 +16,8 @@ window.onload = function() {
 	
 		Crafty.load(
 			[
+				"resources/img/bg/infinity.png",
+				"resources/img/bg/spaceship.png",
 				"resources/img/tiles/simple_tile.png",
 				"resources/img/monster.png",
 				"resources/img/animation/spaceman/moving/moving.png",
@@ -28,13 +30,14 @@ window.onload = function() {
 	
 	Crafty.scene("main", function (e) {
 
-		var pl = Crafty.e("World").world(
+		var pl = Crafty.e("World, spaceship").world(
 			OS.config.canvas.width/2, 
 			OS.config.canvas.height/2, 
 			OS.config.scene.width, 
 			OS.config.scene.height);
-		Player = createSpaceman(10, 2, {x:3, y:15}, {x:10, y:40}, 2, 1, [200, 340]);
-		var box = createSpaceman(10, 2, {x:5, y:30}, {x:10, y:40}, 2, 2, [250, 340]);
+
+		Player = createSpaceman(9000, 1, {x:5, y:18}, {x:10, y:40}, 2, 1, [200, 200]);
+
 
 	});
 	
@@ -42,10 +45,16 @@ window.onload = function() {
 	
 	
 	function loadSprites() {
+		Crafty.sprite(OS.config.scene.width, "resources/img/bg/infinity.png", {
+			infinity: [0, 0]
+		});
+		Crafty.sprite(OS.config.scene.width, "resources/img/bg/spaceship.png", {
+			spaceship: [0, 0]
+		});
 		Crafty.sprite(OS.config.tile.width, "resources/img/tiles/simple_tile.png", {
 			tile1: [0, 0]
 		});
-		Crafty.sprite(OS.config.characters.monster.width, "resources/img/monster.png", {
+		Crafty.sprite(OS.config.characters.monster.width, OS.config.characters.monster.height, "resources/img/animation/tentacleAlien/monster.png", {
 			monster: [0, 0]
 		});
 		Crafty.sprite(OS.config.characters.astronaut.widthSprite, OS.config.characters.astronaut.height, "resources/img/animation/spaceman/moving/moving.png", {
