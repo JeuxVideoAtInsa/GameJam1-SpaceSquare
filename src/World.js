@@ -65,7 +65,7 @@ Crafty.c("World", {
 		
 
 		
-		//this.rotate(360, 1000);
+		this.rotate(360, 10000);
 		return this;
 	},
 	
@@ -96,11 +96,20 @@ Crafty.c("World", {
 			
 			this.bind("EnterFrame", function(r) {
 				for(var i in this.cells) {
-					for (var j in this.cells[i].map.points) {
-						for (var k in this.cells[i].map.points[j]) {
-							this.cells[i].map.points[j][k] = Math.round(this.cells[i].map.points[j][k]);
+					if (this.cells[i].cells) {
+						for (var j in this.cells[i].cells) {
+							this.cells[i].cells[j].x = Math.round(this.cells[i].x);
+							this.cells[i].cells[j].y = Math.round(this.cells[i].y);
+							this.cells[i].cells[j].w = Math.round(this.cells[i].w);
+							this.cells[i].cells[j].h = Math.round(this.cells[i].h);
+							this.cells[i].cells[j]._mbr = null;
 						}
 					}
+					this.cells[i].x = Math.round(this.cells[i].x);
+					this.cells[i].y = Math.round(this.cells[i].y);
+					this.cells[i].w = Math.round(this.cells[i].w);
+					this.cells[i].h = Math.round(this.cells[i].h);
+					this.cells[i]._mbr = null;
 				}
 				this.unbind("EnterFrame");
 			});

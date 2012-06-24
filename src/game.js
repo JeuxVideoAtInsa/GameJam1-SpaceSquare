@@ -33,8 +33,8 @@ window.onload = function() {
 			OS.config.canvas.height/2, 
 			OS.config.scene.width, 
 			OS.config.scene.height);
-		Player = createSpaceman(10, 2, {x:3, y:15}, {x:10, y:40}, 2, 1, [200, 300]);
-		var box = createSpaceman(10, 2, {x:5, y:30}, {x:10, y:40}, 2, 2, [250, 300]);
+		Player = createSpaceman(10, 2, {x:3, y:15}, {x:10, y:40}, 2, 1, [200, 340]);
+		var box = createSpaceman(10, 2, {x:5, y:30}, {x:10, y:40}, 2, 2, [250, 340]);
 
 	});
 	
