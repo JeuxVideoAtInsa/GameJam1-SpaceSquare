@@ -22,7 +22,7 @@ Crafty.c("Monster", {
 		return this;
 	},
 	
-	monster: function(x,y,aiLevel) {
+	monster: function(x, y, aiLevel) {
 		this.x = x;
 		this.y = y;
 		this.aiLevel = aiLevel;
