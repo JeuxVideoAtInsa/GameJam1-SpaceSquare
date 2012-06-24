@@ -53,10 +53,6 @@ Crafty.c('Character', {
 		this.requires('2D, Canvas, Color, Collision, Gravity');
 		this.gravity('Cell');
 		this.color("#FF0000");
-		this.bind("Moved", function(oldPosition) {
-			//Pos.x = this.x; 
-// 			Pos.y = this.y;
-		});
 	},
 
 //-----------------------------------------------------------------------------

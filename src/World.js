@@ -67,9 +67,9 @@ Crafty.c("World", {
 		
 		// Add monsters (TEST)
 		var monsters = [];
-		monsters.push(Crafty.e("Monster, monster").monster(400, 210));
-		monsters.push(Crafty.e("Monster, monster").monster(200, 450));
-		monsters.push(Crafty.e("Monster, monster").monster(300, 56));
+		monsters.push(Crafty.e("Monster, monster").monster(400, 210, AI_STUPID));
+		monsters.push(Crafty.e("Monster, monster").monster(200, 450, AI_STUPID));
+		monsters.push(Crafty.e("Monster, monster").monster(300, 56, AI_STUPID));
 		
 		
 		//this.rotate(90);

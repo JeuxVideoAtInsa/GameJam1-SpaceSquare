@@ -29,7 +29,7 @@ OS.config = {
 		monster: {
 			width: 20,
 			height: 20,
-			speed: 10,
+			speed: 1,
 			jump: 10
 		}
 	},
