@@ -12,7 +12,9 @@ OS.config = {
 		width: 600,
 		height: 600
 	},
-		
+	
+	nbTiles: 30,
+	
 	tile: {
 		width: 20,
 		height: 20
@@ -27,9 +29,9 @@ OS.config = {
 		},
 		
 		monster: {
-			width: 20,
-			height: 20,
-			speed: 1,
+			width: 45,
+			height: 33,
+			speed: 2,
 			jump: 10
 		}
 	},
@@ -48,7 +50,8 @@ OS.config = {
 			},
 			
 			monster: {
-				walk: FRAMERATE/5
+				walk: FRAMERATE/5,
+				die: FRAMERATE/10
 			}
 		}
 	}

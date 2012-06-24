@@ -2,8 +2,11 @@ Crafty.c("World", {
 	angle: 0,
 	cells: [],
 	rotation: null,
+	monsters: [],
+	nbFrames: 0,
 	
 	init: function() {
+		this.requires("2D, Canvas");
 		this.cells = [];
 		this.rotation = null,
 		this.angle = 0;
@@ -13,8 +16,8 @@ Crafty.c("World", {
 	},
 	
 	world: function(x, y, w, h){
-		this.x = x;
-		this.y = y;
+		//this.x = x;
+		//this.y = y;
 		this.w = w;
 		this.h = h;
 		
@@ -66,13 +69,35 @@ Crafty.c("World", {
 		});
 		
 		// Add monsters (TEST)
-		var monsters = [];
-		monsters.push(Crafty.e("Monster, monster").monster(400, 210, AI_STUPID));
-		monsters.push(Crafty.e("Monster, monster").monster(200, 450, AI_STUPID));
-		monsters.push(Crafty.e("Monster, monster").monster(300, 56, AI_STUPID));
+		var begin = new Date().getTime();
+		this.bind("EnterFrame",  function() {
+			
+			this.nbFrames++;
+			
+			if (this.nbFrames%60 == 0) {
+				var tempX = Crafty.math.randomInt(2,OS.config.nbTiles-2);
+				var tempY = Crafty.math.randomInt(2,OS.config.nbTiles-2);
+	
+				this.monsters.push(Crafty.e("Monster, monster").monster(tempX, tempY, AI_DRUNK));
+			}
+			
+			if (this.nbFrames >= 10*60) {
+				for (var i = 0; i < this.monsters.length; i++) {
+					this.monsters[i].kill();
+				}
+				this.nbFrames = 0;
+			}
+			
+		});
 		
+		this.bind('KeyDown', function(e) {
+			if(e.key == Crafty.keys['R']) {
+				this.rotate(90);
+			}
+				
+		});
 		
-		this.rotate(90);
+		//this.rotate(90);
 		return this;
 	},
 	
