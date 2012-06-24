@@ -18,6 +18,22 @@ OS.config = {
 		height: 20
 	},
 	
+	characters: {
+		astronaut: {
+			width: 20,
+			height: 40,
+			speed: 20,
+			jump: 20
+		},
+		
+		monster: {
+			width: 20,
+			height: 20,
+			speed: 10,
+			jump: 10
+		}
+	},
+	
 	frameRate: FRAMERATE,
 	
 	animation: {

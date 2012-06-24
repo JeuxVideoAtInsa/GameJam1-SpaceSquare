@@ -30,7 +30,7 @@ Crafty.c("World", {
 				
 				var curCells = [];
 				for (var i = 0; i<tiles.length; i++) {
-					var cell = Crafty.e("Cell")
+					var cell = Crafty.e("Cell, tile1")
 						.cell(tiles[i][0], tiles[i][1]);
 					if(curCells.length == 0) {
 						curCells.push(cell);
@@ -64,8 +64,15 @@ Crafty.c("World", {
 			},
 			url: 'resources/maps/json/space.json'
 		});
-
-		this.rotate(90);
+		
+		// Add monsters (TEST)
+		var monsters = [];
+		monsters.push(Crafty.e("Monster, monster").monster(400, 210));
+		monsters.push(Crafty.e("Monster, monster").monster(200, 450));
+		monsters.push(Crafty.e("Monster, monster").monster(300, 56));
+		
+		
+		//this.rotate(90);
 		return this;
 	},
 	
