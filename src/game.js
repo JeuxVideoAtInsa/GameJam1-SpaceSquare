@@ -29,7 +29,7 @@ window.onload = function() {
 	});
 	
 	Crafty.scene("main", function (e) {
-
+		
 		var pl = Crafty.e("World, spaceship").world(
 			OS.config.canvas.width/2, 
 			OS.config.canvas.height/2, 
