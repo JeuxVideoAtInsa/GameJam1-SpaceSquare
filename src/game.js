@@ -30,6 +30,7 @@ window.onload = function() {
 			OS.config.scene.width, 
 			OS.config.scene.height);
 		var box = createCharacter(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [20, 40]);
+		var box = createCharacter(10, 2, {x:5, y:30}, {x:10, y:40}, 2, 2, [250, 200], [20, 40]);
 
 	});
 	
