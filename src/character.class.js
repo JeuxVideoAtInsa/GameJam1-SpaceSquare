@@ -44,13 +44,14 @@ Crafty.c('Character', {
 	player : 0,
 	moving : false,
 	skin : null,
+	oldDir:{x:0, y:0},
 
 //-----------------------------------------------------------------------------
 // Init
 //-----------------------------------------------------------------------------
 
 	init : function() {
-		this.requires('2D, Canvas, Collision, Gravity');
+		this.requires("2D, Canvas, Collision, Gravity, SpriteAnimation");
 		this.gravity('Cell');
 		this.bind('Moved', function(from) {
 			if(this.hit('Cell')){
@@ -65,7 +66,10 @@ Crafty.c('Character', {
 					charsHitted[i].obj.x += energy*charsHitted[i].normal.x;
 				}
 			}
+			
+			
 		});
+		
 	},
 
 //-----------------------------------------------------------------------------
@@ -99,6 +103,33 @@ Crafty.c('Character', {
 			h: size[1]
 		});
 		
+		this.animate("spawn_left", [[0,0]]);
+		this.animate("spawn_right", [[0,1]]);
+		this.animate("walk_left", [[0,0],[1,0],[2,0],[3,0]]);
+		this.animate("walk_right", [[0,1],[1,1],[2,1],[3,1]]);
+		
+		this.bind("NewDirection", function(newDir) {
+			
+			debug(newDir);
+			
+			if (newDir.x < 0) {
+				this.stop().animate("walk_left", OS.config.animation.characters.astronaut.walk,-1);
+				this.oldDir.x = newDir.x;
+			} else if (newDir.x > 0) {
+				this.stop().animate("walk_right", OS.config.animation.characters.astronaut.walk,-1);
+				this.oldDir.x = newDir.x;
+			} else {
+				if (this.oldDir.x < 0) {
+					this.stop().animate("spawn_left", OS.config.animation.characters.astronaut.walk,1);
+				} else if (this.oldDir.x > 0) {
+					this.stop().animate("spawn_right", OS.config.animation.characters.astronaut.walk,1);
+				}
+				
+			}
+			
+			
+		
+		});
 		
 		//this.animate("walk_right", [[0, 0],[1,0]]);
 		// Setup animation

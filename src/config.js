@@ -39,6 +39,17 @@ OS.config = {
 	animation: {
 		tile: {
 			update: FRAMERATE
+		},
+		
+		characters: {
+		
+			astronaut: {
+				walk: FRAMERATE/5
+			},
+			
+			monster: {
+				walk: FRAMERATE/5
+			}
 		}
 	}
 };
