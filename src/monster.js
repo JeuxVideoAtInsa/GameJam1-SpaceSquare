@@ -31,8 +31,8 @@ Crafty.c("Monster", {
 	},
 	
 	monster: function(x, y, aiLevel) {
-		this.x = x*OS.config.tile.width;
-		this.y = y*OS.config.tile.height;
+		this.x = x*OS.config.tile.width+OS.config.canvas.width/2-OS.config.scene.width/2;
+		this.y = y*OS.config.tile.height+OS.config.canvas.height/2-OS.config.scene.height/2;
 		this.aiLevel = aiLevel;
 		
 		this.animate("die", [[0,0],[1,0],[2,0]]);
