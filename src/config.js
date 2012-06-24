@@ -34,6 +34,10 @@ OS.config = {
 		}
 	},
 	
+	collision: {
+		calculsDepth : 3
+	},
+	
 	frameRate: FRAMERATE,
 	
 	animation: {

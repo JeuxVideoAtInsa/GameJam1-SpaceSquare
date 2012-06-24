@@ -52,18 +52,45 @@ Crafty.c('Character', {
 	init : function() {
 		this.requires('2D, Canvas, Collision, Gravity');
 		this.gravity('Cell');
+		// this.collisionDepth = 0;
 		this.bind('Moved', function(from) {
-			if(this.hit('Cell')){
-				this.attr({x: from.x, y:from.y});
+			// if (this.collisionDepth > OS.config.collision.calculsDepth) {
+				// return;
+			// }
+			var hitted = this.hit('Cell')
+			if(hitted){
+				var oldX = this._x;
+				var oldY = this._y;
+				this.x = from.x;
+				this.y = from.y;
+				// for (var i = 0; i < hitted.length; i++) {
+					// var energy = this._gravityConst*this._speed*this._speed;
+					// this.x = from.x-energy*hitted[i].normal.x;
+					// this.y = from.y+energy*hitted[i].normal.y;
+				// }
+				// this.collisionDepth++;
+				// this.trigger('Moved', { x: oldX, y: oldY });
 			}
-			var charsHitted = this.hit('Character')
-			if(charsHitted){
-				this.attr({x: from.x, y:from.y});
-				for (var i = 0; i < charsHitted.length; i++) {
-					var energy = (charsHitted[i].obj.weigth*charsHitted[i].obj._speed);
-					charsHitted[i].obj.y -= energy*charsHitted[i].normal.y;
-					charsHitted[i].obj.x += energy*charsHitted[i].normal.x;
+			else {
+				hitted = this.hit('Character')
+				if(hitted){
+					var oldX = this._x;
+					var oldY = this._y;
+					this.x = from.x;
+					this.y = from.y;
+					// for (var i = 0; i < hitted.length; i++) {
+						// var energy = hitted[i].obj._gravityConst*hitted[i].obj._speed - this._gravityConst*this._speed;
+						// hitted[i].obj.y += energy*hitted[i].normal.y;
+						// hitted[i].obj.x -= energy*hitted[i].normal.x;
+						// this.x = from.x-energy*hitted[i].normal.x;
+						// this.y = from.y+energy*hitted[i].normal.y;
+					// }
+					// this.collisionDepth++;
+					// this.trigger('Moved', { x: oldX, y: oldY });
 				}
+				// else {
+					// this.collisionDepth = 0;
+				// }
 			}
 		});
 	},

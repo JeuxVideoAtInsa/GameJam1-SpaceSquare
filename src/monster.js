@@ -11,13 +11,14 @@ Crafty.c("Monster", {
 	
 	init : function() {
 		this.requires("2D, Canvas, SpriteAnimation, Character");
+		this.Character(20, 1, OS.config.characters.monster.speed, OS.config.characters.monster.speed, 1, 0, [0, 0], [OS.config.characters.monster.width, OS.config.characters.monster.height]);
 		this.w = OS.config.characters.monster.width;
 		this.h = OS.config.characters.monster.height;
 		this.position = new Object();
 		this.position.x = 0;
 		this.position.y = 0;
 		this.origin("middle middle");
-		
+		this._speed = OS.config.characters.monster.speed;
 		return this;
 	},
 	
@@ -52,9 +53,14 @@ Crafty.c("Monster", {
 		var deltaY = destY - this._y;
 		var dist = Math.sqrt(deltaX*deltaX+deltaY*deltaY)/OS.config.characters.monster.speed;
 		
+		var oldX = this._x;
+		var oldY = this._y;
+		
 		this.x += deltaX/dist;
 		this.y += deltaY/dist;
 		
-		
+		if ((oldX != this._x) || (oldY != this._y)) {
+			this.trigger('Moved', { x: oldX, y: oldY });
+		}
 	}
 });
