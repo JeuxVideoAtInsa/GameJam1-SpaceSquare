@@ -8,7 +8,7 @@ Crafty.c("World", {
 		this.rotation = null,
 		this.angle = 0;
 		this.id=0;
-			
+	
 		return this;
 	},
 	
@@ -43,8 +43,7 @@ Crafty.c("World", {
 							curCells = [];
 							curCells.push(cell);
 						} else {
-							self.cells.push(Crafty.e("Structure")
-								.structure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
+							self.cells.push(createStructure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
 								.addCells(curCells));
 							curCells = [];
 							curCells.push(cell);
@@ -55,8 +54,7 @@ Crafty.c("World", {
 					self.cells.push(cell);
 					curCells = [];
 				} else if(curCells.length > 1) {
-					self.cells.push(Crafty.e("Structure")
-						.structure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
+					self.cells.push(createStructure(curCells[0].x/curCells[0].w, curCells[0].y/curCells[0].h, curCells.length, 1)
 						.addCells(curCells));
 					curCells = [];
 					curCells.push(cell);
@@ -65,21 +63,16 @@ Crafty.c("World", {
 			url: 'resources/maps/json/space.json'
 		});
 		
-		// Add monsters (TEST)
-		var monsters = [];
-		monsters.push(Crafty.e("Monster, monster").monster(400, 210, AI_STUPID));
-		monsters.push(Crafty.e("Monster, monster").monster(200, 450, AI_STUPID));
-		monsters.push(Crafty.e("Monster, monster").monster(300, 56, AI_STUPID));
+
 		
-		
-		this.rotate(90);
+		//this.rotate(360, 1000);
 		return this;
 	},
 	
-	rotate: function(degree) {
+	rotate: function(degree, dur) {
 		this.rotation = {
 			begin: new Date().getTime(),
-			duration: 2000,
+			duration: dur,
 			beginAngle: this.angle,
 			endingAngle: this.angle+degree,
 			cb: function() {
@@ -100,6 +93,17 @@ Crafty.c("World", {
 			this.angle = r.endingAngle;
 			this.applyTransform();
 			delete this.rotation;
+			
+			this.bind("EnterFrame", function(r) {
+				for(var i in this.cells) {
+					for (var j in this.cells[i].map.points) {
+						for (var k in this.cells[i].map.points[j]) {
+							this.cells[i].map.points[j][k] = Math.round(this.cells[i].map.points[j][k]);
+						}
+					}
+				}
+				this.unbind("EnterFrame");
+			});
 		}
 	},
 	
@@ -116,5 +120,9 @@ Crafty.c("World", {
 				cosinus,
 				sinus);
 		}
+	},
+	
+	generateWorld: function(angle) {
+		
 	}
 });

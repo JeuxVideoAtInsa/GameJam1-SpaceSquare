@@ -3,7 +3,7 @@ Crafty.c("Cell", {
 
 	init: function() {
 
-		this.requires("2D, Canvas, SpriteAnimation, Collision");
+		this.requires("2D, Canvas, SpriteAnimation, Collision, WiredHitBox");
 		this.w = OS.config.tile.width;
 		this.h = OS.config.tile.height;
 		this.position = new Object();

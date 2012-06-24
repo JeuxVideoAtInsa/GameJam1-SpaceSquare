@@ -33,8 +33,8 @@ window.onload = function() {
 			OS.config.canvas.height/2, 
 			OS.config.scene.width, 
 			OS.config.scene.height);
-		Player = createSpaceman(10, 2, {x:3, y:20}, {x:10, y:40}, 2, 1, [200, 200], [33, 45]);
-		var box = createSpaceman(10, 2, {x:5, y:30}, {x:10, y:40}, 2, 2, [250, 200], [33, 45]);
+		Player = createSpaceman(10, 2, {x:3, y:15}, {x:10, y:40}, 2, 1, [200, 300]);
+		var box = createSpaceman(10, 2, {x:5, y:30}, {x:10, y:40}, 2, 2, [250, 300]);
 
 	});
 	
@@ -48,7 +48,7 @@ window.onload = function() {
 		Crafty.sprite(OS.config.characters.monster.width, "resources/img/monster.png", {
 			monster: [0, 0]
 		});
-		Crafty.sprite(OS.config.characters.astronaut.width, OS.config.characters.astronaut.height, "resources/img/animation/spaceman/moving/moving.png", {
+		Crafty.sprite(OS.config.characters.astronaut.widthSprite, OS.config.characters.astronaut.height, "resources/img/animation/spaceman/moving/moving.png", {
 			astronaut: [0, 0]
 		});
 		Crafty.sprite(OS.config.tile.width, OS.config.tile.height, "resources/img/block/blocks.png", {

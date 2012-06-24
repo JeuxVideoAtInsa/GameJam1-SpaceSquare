@@ -20,6 +20,7 @@ OS.config = {
 	
 	characters: {
 		astronaut: {
+			widthSprite: 43,
 			width: 33,
 			height: 47,
 			speed: 20,

@@ -1,3 +1,12 @@
+function createStructure(x, y, w, h) {
+	return Crafty.e("Structure").structure(x, y, w, h)
+		// .collision(
+			// new Crafty.polygon([0,0], [0,h*OS.config.tile.height], [w*OS.config.tile.width,h*OS.config.tile.height], [w*OS.config.tile.width,0])
+		// )
+		;
+}
+
+
 Crafty.c("Structure", {
 	cells: [],
 
