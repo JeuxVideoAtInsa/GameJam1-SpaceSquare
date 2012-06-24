@@ -1,9 +1,11 @@
 Crafty.c("World", {
 	angle: 0,
 	cells: [],
+	indexedCells: {},
 	rotation: null,
 	monsters: [],
 	nbFrames: 0,
+	rotationCenter: {x:0,y:0},
 	
 	init: function() {
 		this.requires("2D, Canvas");
@@ -11,15 +13,19 @@ Crafty.c("World", {
 		this.rotation = null,
 		this.angle = 0;
 		this.id=0;
+		this.indexedCells = {};
 	
 		return this;
 	},
 	
 	world: function(x, y, w, h){
-		this.x = x;
-		this.y = y;
+		this.x = x-w/2;
+		this.y = y-h/2;
+		this.rotationCenter.x = x;
+		this.rotationCenter.y = y;
 		this.w = w;
 		this.h = h;
+		this.origin("middle middle");
 		
 		var tiles = {};
 		var self = this;
@@ -35,6 +41,7 @@ Crafty.c("World", {
 				for (var i = 0; i<tiles.length; i++) {
 					var cell = Crafty.e("Cell, block")
 						.cell(tiles[i][0], tiles[i][1]);
+					self.indexedCells[tiles[i][0]+tiles[i][1]*OS.config.nbTiles] = cell;
 					if(curCells.length == 0) {
 						curCells.push(cell);
 					} else {
@@ -75,8 +82,8 @@ Crafty.c("World", {
 			if (this.nbFrames%60 == 0) {
 				var tempX = Crafty.math.randomInt(2,OS.config.nbTiles-2);
 				var tempY = Crafty.math.randomInt(2,OS.config.nbTiles-2);
-	
-				this.monsters.push(Crafty.e("Monster, monster").monster(tempX, tempY, AI_DRUNK));
+				
+				this.monsters.push(Crafty.e("Monster, monster").monster(tempX, tempY, AI_STUPID));
 			}
 			
 			if (this.nbFrames >= 10*60) {
@@ -124,28 +131,30 @@ Crafty.c("World", {
 			this.applyTransform();
 			delete this.rotation;
 			
-			this.bind("EnterFrame", function(r) {
-				for(var i in this.cells) {
-					if(typeof this.cells[i].map !== "undefined") {
-						for (var j in this.cells[i].map.points) {
-							for (var k in this.cells[i].map.points[j]) {
-								this.cells[i].map.points[j][k] = Math.round(this.cells[i].map.points[j][k]);
-							}
-						}
-					}
-				}
-				this.unbind("EnterFrame");
-			});
+			this.bind("EnterFrame", this.correctCollisions);
 		}
 	},
 	
-	applyTransform: function() {
+	correctCollisions: function() {
+		for(var i in this.cells) {
+			if(typeof this.cells[i].map !== "undefined") {
+				for (var j in this.cells[i].map.points) {
+					for (var k in this.cells[i].map.points[j]) {
+						this.cells[i].map.points[j][k] = Math.round(this.cells[i].map.points[j][k]);
+					}
+				}
+			}
+		}
+		this.unbind("EnterFrame", this.correctCollisions);
+	},
+	
+	applyTransform: function() {	
 		var cosinus = Math.cos(this.angle*Math.PI/180);
 		var sinus = Math.sin(this.angle*Math.PI/180);
 		for(var i in this.cells) {
 			this.cells[i].applyTransform(
-				this.x,
-				this.y,
+				this.rotationCenter.x,
+				this.rotationCenter.y,
 				this.w,
 				this.h,
 				this.angle,
